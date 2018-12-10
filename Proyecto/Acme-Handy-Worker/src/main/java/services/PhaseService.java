@@ -81,5 +81,10 @@ public class PhaseService {
 		Assert.notNull(phase);
 		return phase;
 	}
+	public Collection<Phase> findByTaskId(final int id) {
+		Collection<Phase> result;
+		result = this.phaseRepository.findByTaskId(id);
+		return result;
+	}
 
 }

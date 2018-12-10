@@ -34,9 +34,10 @@ public class CategoryServiceTest extends AbstractTest {
 		final Collection<Category> categories;
 		category = this.categoryService.create();
 
-		final Category categoryFather = this.categoryService.findOne(581);
-
+		final Category categoryFather = this.categoryService.findCategoryByName("CATEGORY");
 		category.setFather(categoryFather);
+
+		//category.setFather(this.categoryService.findOne(670));
 		category.setName("Category3");
 
 		saved = this.categoryService.save(category);

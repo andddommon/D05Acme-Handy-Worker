@@ -64,16 +64,16 @@ public class CategoryService {
 
 	}
 	public Collection<Category> findAll() {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		boolean isAdmin = false;
-
-		for (final Authority autoAuthority : userAccount.getAuthorities())
-			if (autoAuthority.getAuthority().equals(Authority.ADMIN)) {
-				isAdmin = true;
-				break;
-			}
-		Assert.isTrue(isAdmin, "No puedes crear un finder porque no eres Customer");
+		//		UserAccount userAccount;
+		//		userAccount = LoginService.getPrincipal();
+		//		boolean isAdmin = false;
+		//
+		//		for (final Authority autoAuthority : userAccount.getAuthorities())
+		//			if (autoAuthority.getAuthority().equals(Authority.ADMIN)) {
+		//				isAdmin = true;
+		//				break;
+		//			}
+		//		Assert.isTrue(isAdmin, "No puedes crear un finder porque no eres Admin");
 		Collection<Category> result;
 		result = this.categoryRepository.findAll();
 		return result;
@@ -104,5 +104,9 @@ public class CategoryService {
 			t.getCategory().setFather(father);
 
 		this.categoryRepository.delete(category);
+	}
+	public Category findCategoryByName(final String name) {
+		final Category cate = this.categoryRepository.findCategoryByName(name);
+		return cate;
 	}
 }

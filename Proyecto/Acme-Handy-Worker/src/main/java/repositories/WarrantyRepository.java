@@ -20,4 +20,7 @@ public interface WarrantyRepository extends JpaRepository<Warranty, Integer> {
 	@Query("select t.warranty from Task t where t.warranty.id=?1")
 	Collection<Warranty> FindAllWarrantiesById();
 
+	@Query("select t.warranty from Task t where t.id =?1")
+	Collection<Warranty> findByIdTask(int id);
+
 }

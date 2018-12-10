@@ -38,6 +38,12 @@ public class TaskService {
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
 
+	@Autowired
+	private PhaseService		phaseService;
+
+	@Autowired
+	private WarrantyService		warrantyService;
+
 
 	public Task create() {
 
@@ -124,7 +130,6 @@ public class TaskService {
 	}
 	public Task save(final Task task) {
 
-		final Task result = this.taskRepository.save(task);
 		if (task.getId() == 0) {
 
 			UserAccount userAccount;
@@ -136,18 +141,11 @@ public class TaskService {
 					isCustomer = true;
 					break;
 				}
-			Assert.isTrue(isCustomer, "No puedes crear un finder porque no eres Customer");
+			Assert.isTrue(isCustomer, "No puedes crear una Task porque no eres Customer");
 			//Assert.isTrue(LoginService.getPrincipal().getAuthorities().contains(Authority.CUSTOMER));
 		}
-		final Customer customer = this.customerService.findCustomerById(task.getCustomer().getId());
-		customer.getTasks().add(result);
-		this.customerService.save(customer);
-
-		//		final Finder finder = this.finderService.findFinderByTaskId(task.getId());
-		//		finder.getTask().add(result);
-		//		this.finderService.save(finder);
-
-		Assert.notNull(result);
+		Assert.notNull(task);
+		final Task result = this.taskRepository.save(task);
 
 		return result;
 
@@ -157,5 +155,26 @@ public class TaskService {
 		result = this.taskRepository.findTaskByIdCategory(id);
 
 		return result;
+	}
+	public void delete(final Task task) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		boolean isCustomer = false;
+
+		for (final Authority autoAuthority : userAccount.getAuthorities()) {
+			if (autoAuthority.getAuthority().equals(Authority.CUSTOMER)) {
+				isCustomer = true;
+				break;
+			}
+			Assert.isTrue(isCustomer, "No puedes borrar una Task porque no eres Customer");
+		}
+		this.taskRepository.delete(task.getId());
+		final Collection<Phase> phases = this.phaseService.findByTaskId(task.getId());
+		for (final Phase p : phases)
+			this.phaseService.delete(p);
+
+		final Collection<Warranty> warranty = this.warrantyService.findByIdTask(task.getId());
+		for (final Warranty w : warranty)
+			this.warrantyService.delete(w);
 	}
 }

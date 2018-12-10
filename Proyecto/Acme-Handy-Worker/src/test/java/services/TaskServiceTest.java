@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,9 +67,13 @@ public class TaskServiceTest extends AbstractTest {
 		final Collection<Application> applications = new ArrayList<Application>();
 		final Collection<Phase> phases = new ArrayList<Phase>();
 		final Collection<Complaint> complaints = new ArrayList<Complaint>();
-		final Category category = this.categoryService.findOne(581);
-		final Customer customer = this.customerService.findCustomerById(614);
-		final Warranty warranty = this.warrantyService.findOne(590);
+
+		final List<Category> categories = new ArrayList<>(this.categoryService.findAll());
+		final Category category = categories.get(0);
+		final List<Customer> customers = new ArrayList<>(this.customerService.findAll());
+		final Customer customer = customers.get(0);
+		final List<Warranty> warranties = new ArrayList<>(this.warrantyService.findAll());
+		final Warranty warranty = warranties.get(0);
 
 		task.setAddress(address);
 		task.setApplications(applications);
@@ -90,4 +95,59 @@ public class TaskServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void TestDeleteTask() {
+		this.authenticate("customer1");
+		final Task task, saved;
+		final Collection<Task> tasks;
+		task = this.taskSevice.create();
+
+		final long d = 1533297652000L;
+		final long dstart = 1505583052000L;
+		final long dend = 1539451852000L;
+
+		final String ticket = "987654";
+		final Date moment = new Date(d);
+		final String description = "urgently needed";
+		final String address = "Universidad de Sevilla";
+		final Date startDate = new Date(dstart);
+		final Date endDate = new Date(dend);
+		final Double maximumPrice = new Double(1400.80);
+		final Collection<Application> applications = new ArrayList<Application>();
+		final Collection<Phase> phases = new ArrayList<Phase>();
+		final Collection<Complaint> complaints = new ArrayList<Complaint>();
+		final List<Category> categories = new ArrayList<>(this.categoryService.findAll());
+		final Category category = categories.get(0);
+		final List<Customer> customers = new ArrayList<>(this.customerService.findAll());
+		final Customer customer = customers.get(0);
+		//final List<Warranty> warranties = new ArrayList<>(this.warrantyService.findAll());
+		//	final Warranty warranty = warranties.get(0);
+		//		Warranty warranty = new Warranty();
+		//		for (final Warranty w : warranties)
+		//			if (w != null) {
+		//				warranty = w;
+		//				break;
+		//			}
+
+		task.setAddress(address);
+		task.setApplications(applications);
+		task.setCategory(category);
+		task.setComplaints(complaints);
+		task.setCustomer(customer);
+		task.setDescription(description);
+		task.setEndDate(endDate);
+		task.setMaximumPrice(maximumPrice);
+		task.setMoment(moment);
+		task.setPhases(phases);
+		task.setStartDate(startDate);
+		task.setTicket(ticket);
+		task.setWarranty(this.warrantyService.findOne(679));
+		System.out.println(this.warrantyService.findOne(679));
+
+		saved = this.taskSevice.save(task);
+		this.taskSevice.delete(saved);
+		tasks = this.taskSevice.findAll();
+		Assert.isTrue(!tasks.contains(saved));
+
+	}
 }

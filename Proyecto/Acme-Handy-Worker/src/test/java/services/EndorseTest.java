@@ -1,8 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,20 +48,34 @@ public class EndorseTest extends AbstractTest {
 	}
 	@Test
 	public void testSaveEndorse() {
-		this.authenticate("customer");
-		final Customer c = this.customerService.findCustomerById(248);
-		final HandyWorker hwSender = this.handyworkerService.findById(242);
-		final HandyWorker hwReciever = this.handyworkerService.findById(243);
-		final Endorse endorse = new Endorse();
+		this.authenticate("customer1");
 
-		endorse.setCustomerReceiver(c);
+		final List<Customer> cus = new ArrayList<>(this.customerService.findAll());
+		final Customer cR = cus.get(0);
+		final Customer cS = cus.get(1);
+
+		final List<HandyWorker> han = new ArrayList<>(this.handyworkerService.findAll());
+		final HandyWorker hwSender = han.get(0);
+
+		final HandyWorker hwReciever = han.get(1);
+
+		final Endorse endorse;
+		Endorse saved;
+		final Collection<Endorse> endorses;
+
+		endorse = this.endorseService.create();
+
+		endorse.setCustomerReceiver(cR);
+		endorse.setCustomerSender(cS);
 		endorse.setComents("comentario sobre el endorse del test");
 		endorse.setHandyWorkerSender(hwSender);
 		endorse.setHandyWorkerReceiver(hwReciever);
 		endorse.setMoment(new Date(22 / 2 / 2018));
-		this.endorseService.saveEndorse(endorse);
+		saved = this.endorseService.saveEndorse(endorse);
 
-		this.authenticate(null);
+		endorses = this.endorseService.findAll();
+		Assert.isTrue(endorses.contains(saved));
+
 	}
 	//	@Test
 	//	public void testDelete(){	

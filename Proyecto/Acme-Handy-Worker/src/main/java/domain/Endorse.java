@@ -28,7 +28,7 @@ public class Endorse extends DomainEntity {
 	private HandyWorker	handyWorkerReceiver;
 
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@Valid
 	public HandyWorker getHandyWorkerSender() {
 		return this.handyWorkerSender;
@@ -38,7 +38,7 @@ public class Endorse extends DomainEntity {
 		this.handyWorkerSender = handyWorkerSender;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@Valid
 	public HandyWorker getHandyWorkerReceiver() {
 		return this.handyWorkerReceiver;
@@ -69,7 +69,7 @@ public class Endorse extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Customer getCustomerSender() {
 		return this.customerSender;
 	}
@@ -78,7 +78,7 @@ public class Endorse extends DomainEntity {
 		this.customerSender = customerSender;
 	}
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Customer getCustomerReceiver() {
 		return this.customerReceiver;
 	}

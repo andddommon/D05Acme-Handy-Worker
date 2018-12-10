@@ -41,6 +41,7 @@ public class FinderServiceTest extends AbstractTest {
 		final Finder saved;
 
 		final Collection<Finder> finders;
+
 		finder = this.finderService.create();
 		finder.setCategory("informatica");
 		finder.setStartDate(new Date(System.currentTimeMillis() + 8000));
@@ -52,6 +53,7 @@ public class FinderServiceTest extends AbstractTest {
 		finder.setTask(tasks);
 		finder.setWarranty("garatia");
 		saved = this.finderService.save(finder);
+
 		finders = this.finderService.findAll();
 		Assert.isTrue(finders.contains(saved));
 

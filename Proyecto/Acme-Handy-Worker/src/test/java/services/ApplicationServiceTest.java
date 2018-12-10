@@ -35,10 +35,14 @@ public class ApplicationServiceTest extends AbstractTest {
 	@Test
 	public void testApplicationSave() {
 		this.authenticate("handyWorker1");
+
 		final Application application;
 		final Application saved;
+
 		final Collection<Application> applications;
+
 		application = this.applicationService.create();
+
 		final Collection<String> comments = new ArrayList<String>();
 		final List<Task> tasks = new ArrayList<>(this.taskService.findAll());
 		final Task task = tasks.get(0);
