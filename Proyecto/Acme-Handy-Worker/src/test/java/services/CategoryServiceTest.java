@@ -46,4 +46,9 @@ public class CategoryServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void deleteCategory() {
+
+	}
+
 }

@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Task extends DomainEntity {
 
-	private String					ticket;
+	private String					ticker;
 	private Date					moment;
 	private String					description;
 	private String					address;
@@ -41,11 +41,11 @@ public class Task extends DomainEntity {
 
 	@NotBlank
 	public String getTicket() {
-		return this.ticket;
+		return this.ticker;
 	}
 
 	public void setTicket(final String ticket) {
-		this.ticket = ticket;
+		this.ticker = ticket;
 	}
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
