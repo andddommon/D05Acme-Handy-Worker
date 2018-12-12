@@ -18,7 +18,7 @@
 	<form:input path="name" />
 	<br>
 
-	<form:label path="name">
+	<form:label path="middeName">
 		<spring:message code="handyWorker.middeName"></spring:message>
 	</form:label>
 	<form:input path="middeName" />
@@ -64,9 +64,9 @@
 	
 	
 	<input type="submit" name="save"
-		value="<spring:message code="actor.save" />" />
+		value="<spring:message code="handyWorker.save" />" />
 	<input type="button" name="cancel"
-		value="<spring:message code="actor.return" />" /> 
+		value="<spring:message code="handyWorker.cancel" />" /> 
 		
 
 </form:form>
