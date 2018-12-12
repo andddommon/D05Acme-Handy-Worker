@@ -35,7 +35,6 @@ public class ComplaintService {
 		final Date moment = new Date();
 
 		complaint.setMoment(moment);
-		System.out.println(moment);
 
 		final List<Report> reports = new ArrayList<>();
 		complaint.setReports(reports);
@@ -53,6 +52,14 @@ public class ComplaintService {
 		Collection<Complaint> complaints;
 		complaints = this.complaintRepository.findAll();
 		return complaints;
+	}
+
+	public Complaint save(final Complaint complaint) {
+
+		Assert.notNull(complaint);
+		final Complaint result = this.complaintRepository.save(complaint);
+
+		return result;
 	}
 
 }

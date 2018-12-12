@@ -8,6 +8,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access= "hasRole('CUSTOMER')">
 <form:form action="complaint/create.do" modelAttribute="complaint">
 
 	<form:hidden path="id" />
@@ -24,44 +25,6 @@
 	<form:input path="attachments" />
 	<br>
 
-
-	<form:label path="surname">
-		<spring:message code="handyWorker.surname"></spring:message>
-	</form:label>
-	<form:input path="surname" />
-	<br>
-
-
-	<form:label path="email">
-		<spring:message code="handyWorker.email"></spring:message>
-	</form:label>
-	<form:input path="email" />
-	<br>
-
-	<form:label path="photo">
-		<spring:message code="handyWorker.photo"></spring:message>
-	</form:label>
-	<form:input path="photo" />
-	<br>
-
-	<form:label path="phoneNumber">
-		<spring:message code="handyWorker.phoneNumber"></spring:message>
-	</form:label>
-	<form:input path="phoneNumber" />
-	<br>
-
-	<form:label path="address">
-		<spring:message code="handyWorker.address"></spring:message>
-	</form:label>
-	<form:input path="address" />
-	<br>
-
-	<form:label path="make">
-		<spring:message code="handyWorker.make"></spring:message>
-	</form:label>
-	<form:input path="make" />
-	<br>
-	
 	
 	<input type="submit" name="save"
 		value="<spring:message code="actor.save" />" />
@@ -70,3 +33,4 @@
 		
 
 </form:form>
+</security:authorize>

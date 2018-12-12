@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Complaint;
@@ -40,6 +41,10 @@ public class ComplaintTest extends AbstractTest {
 		final Collection<Report> reports = this.reportService.finAll();
 		complaint.setReports(reports);
 
+		complaint.setTicket("9898765");
+		saved = this.complaintService.save(complaint);
+		complaints = this.complaintService.findAll();
+		Assert.isTrue(complaints.contains(saved));
 	}
 
 }
