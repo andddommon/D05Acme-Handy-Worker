@@ -8,20 +8,20 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="handyWorker/create.do" modelAttribute="handyWorker">
+<form:form action="complaint/create.do" modelAttribute="complaint">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:label path="name">
-		<spring:message code="handyWorker.name"></spring:message>
+	<form:label path="description">
+		<spring:message code="complaint.description"></spring:message>
 	</form:label>
-	<form:input path="name" />
+	<form:input path="description" />
 	<br>
 
-	<form:label path="name">
-		<spring:message code="handyWorker.middeName"></spring:message>
+	<form:label path="attachments">
+		<spring:message code="complaint.attachments"></spring:message>
 	</form:label>
-	<form:input path="middeName" />
+	<form:input path="attachments" />
 	<br>
 
 
